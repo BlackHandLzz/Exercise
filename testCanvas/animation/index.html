@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas">
+
+    </canvas>
+    <script>
+
+        // let [a, b] = [0, 0];
+        // setInterval(function () {
+        //     a++;
+        // }, 100);
+
+        // !(function render() {
+        //     b++;
+        //     requestAnimationFrame(render);
+        // })();
+
+        // window.addEventListener('visibilitychange', function () {
+        //     console.log('-------------', document.visibilityState);
+        //     console.log('a', a);
+        //     console.log('b', b)
+        // })
+
+        // 速度和加速度
+        // 1 速度： 描述物体运动快慢和运动方向的物理量
+        // 2，加速度 描述速度变化的量
+
+
+
+        var canvas = document.querySelector('#canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        var ctx = canvas.getContext('2d');
+
+        const { width, height } = canvas;
+        // 动画 4步
+        // 1.清空canvas;
+        // 2.保存canvas状态
+        // 3.绘制动画图形
+        // 4.回复canvas状态
+        class Ball {
+            constructor(r, color = '#000') {
+                this.color = this.color;
+                this.r = r;
+                this.x = 0;
+                this.y = 0;
+            }
+            draw(ctx) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.fillStyle = this.color;
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // 实例化小球
+        let ball = new Ball(15);
+        ball.x = width / 2;
+        ball.y = 50;
+        ball.draw(ctx);
+
+        let time = new Date();
+        const gravity = 0.01;
+
+        const bounce = -0.8;
+        // 速度
+        let vy = 0.3;
+
+        // 更新小球位置
+        function animate() {
+            let now = new Date();
+            let diff = now - time;
+            time = now;
+            // 加速度
+            vy += gravity;
+
+            ball.y += vy * diff;
+
+            if (ball.y + ball.r > height) {
+                ball.y = height - ball.r;
+                vy *= bounce;
+            }
+
+        }
+
+        !(function render() {
+            animate();
+            ctx.clearRect(0, 0, width, height);
+            ball.y += vy;
+            ball.draw(ctx);
+
+            requestAnimationFrame(render);
+        })()
+
+
+    </script>
+</body>
+
+</html>

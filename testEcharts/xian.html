@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #main {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+
+    </div>
+    <script src="https://cdn.bootcss.com/echarts/3.7.1/echarts.min.js"></script>
+    <script>
+        window.onload = function () {
+            const dom = document.querySelector('#main');
+            const myChart = echarts.init(dom);
+            console.log(myChart);
+
+            const option = {
+                xAxis: {
+                    data: ["2013/1/24", "2013/1/25", "2013/1/28", "2013/6/5", "2013/6/6", "2013/6/7", "2013/6/13"],
+                },
+                yAxis: {
+
+                },
+                series: [
+                    {
+                        type: 'candlestick',
+                        data: [
+                            [100, 500, 300, 200],
+                            [0, 400, 30, 500],
+                        ],
+                    }
+                ]
+            };
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+
+</html>

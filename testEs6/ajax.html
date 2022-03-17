@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="box">点击发送ajax</div>
+    <script>
+        // let box = document.querySelector('#box');
+        // box.onclick = function () {
+        //     let xhr = new XMLHttpRequest();
+        //     xhr.open("get", 'http://localhost:5500/', true);
+        //     xhr.onload = function () {
+        //         console.log(xhr.responseText);
+        //     }
+        //     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+        //     // xhr.setRequestHeader("content-type", "multipart/form-data")
+        //     //xhr.setRequestHeader("content-type", "application/json")
+        //     xhr.send()
+        // }
+
+        // 自己封装forEach
+        // Array.prototype.myForEach = function (fn) {
+        //     var arr = this,
+        //         len = arr.length,
+        //         arg = arguments[1] || window;
+        //     for (var i = 0; i < len; i++) {
+        //         fn.apply(arg, [arr[i], i, arr])
+        //     }
+        // }
+        // var data = [
+        //     { name: 'lan', age: 12 },
+        //     { name: 'zhong', age: 22 },
+        //     { name: 'ze', age: 32 },
+        // ]
+        // data.myForEach(function (value, index, array) {
+        //     console.log(index + '...' + value.name)
+        // })
+
+        // 自己封装filter
+        // Array.prototype.myFilter = function (fn) {
+        //     var arr = this,
+        //         len = arr.length,
+        //         arg = arguments[1] || window,
+        //         newData = [],
+        //         newV;
+        //     for (var i = 0; i < len; i++) {
+        //         newV = deepClone({}, arr[i])
+        //         fn.apply(arg, [newV, i, arr]) ? newData.push(newV) : ''
+
+        //     }
+        //     return newData
+        // }
+
+        // 需要用到深拷贝  我能简单理解的
+        function deepClone(dest, obj) {
+            var o = dest;
+            for (var key in obj) {
+                if (typeof obj[key] === 'object') {
+                    o[key] = obj[key].constructor === Array ? [] : {}
+                    deepClone(o[key], obj[key])
+                } else {
+                    dest[key] = obj[key];
+                }
+            }
+            return o;
+        }
+
+        function deepclone1(data, arg) {
+            var arr = arg;
+            for (var key in data) {
+                if (typeof data[key] === 'object') {
+                    arr[key] = data[key].constructor === Array ? [] : {}
+                    deepclone1(data[key], arr[key])
+                } else {
+                    arr[key] = data[key]
+                }
+            }
+        }
+
+
+        //console.log(deepClone({}, data))
+        // var b = data.myFilter(function (value, index, array) {
+        //     return index
+        // })
+        // console.log(b)
+
+        // 自己封装map
+        // Array.prototype.myMap = function (fn) {
+        //     var arr = this,
+        //         len = arr.length,
+        //         arg = arguments[1] || window,
+        //         newData = [],
+        //         newV;
+        //     for (var i = 0; i < len; i++) {
+        //         newV = deepClone({}, arr[i])
+        //         newData.push(newV)
+        //     }
+        //     return newData
+        // }
+        // var c = data.myMap(function (value, index, array) {
+        //     return value
+        // })
+        // console.log(c)
+
+        // 自己封装every
+        // Array.prototype.myEvery = function (fn) {
+        //     var arr = this,
+        //         len = arr.length,
+        //         arg = arguments[1] || window,
+        //         res = true;
+        //     for (var i = 0; i < len; i++) {
+        //         if (!fn.apply(arg, [arr[i], i, arr])) {
+        //             res = false;
+        //             break;
+        //         }
+        //     }
+        //     return res;
+        // }
+        // 自己封装some
+        // Array.prototype.mySome = function (fn) {
+        //     var arr = this,
+        //         len = arr.length,
+        //         arg = arguments[1] || window,
+        //         res = false;
+        //     for (var i = 0; i < len; i++) {
+        //         if (fn.apply(arg, [arr[i], i, arr])) {
+        //             res = true;
+        //             break;
+        //         }
+        //     }
+        //     return res;
+        // }
+
+        // 自己封装reduce
+        // Array.prototype.myReduce = function (fn, initialValue) {
+        //     var arr = this,
+        //         len = arr.length,
+        //         arg = arguments[2] || window;
+        //     for (var i = 0; i < len; i++) {
+        //         initialValue = fn.apply(arg, [initialValue, arr[i], i, arr])
+        //     }
+        //     return initialValue;
+        // }
+        // 自己封装reduceRight
+        // Array.prototype.myReduceRight = function (fn, initialValue) {
+        //     var arr = this,
+        //         len = arr.length,
+        //         arg = arguments[2] || window;
+        //     for (var i = len - 1; i > 0; i--) {
+        //         initialValue = fn.apply(arg, [initialValue, arr[i], i, arr])
+        //     }
+        //     return initialValue;
+        // }
+
+        // 构造函数
+        function Compute(a, b) {
+            this.a = a;
+            this.b = b;
+            this.add = function () {
+                return this.a + this.b
+            }
+            this.minus = function () {
+                return this.a - this.b
+            }
+        }
+
+        var compute = new Compute(10, 2);
+        console.log(compute.add())
+
+        function deepclone2(dest, arg) {
+            var arr = arg;
+            for (var key in dest) {
+                if (typeof dest[key] == 'object') {
+                    arr[key] = dest[key].constructor == Array ? [] : {};
+                    deepclone2(dest[key], arr[key])
+                } else {
+                    arr[key] = dest[key]
+                }
+            }
+        }
+
+
+        // 函数防抖
+        // 延迟执行， 在n秒内再次触发的时候重新执行
+        function debounce(fn, time, tiggleNow) {
+            var t = null,
+                res;
+            var debounced = function () {
+                var _self = this,
+                    args = arguments;
+
+                if (t) {
+                    clearTimeout(t);
+                }
+
+                if (tiggleNow) {
+                    var exec = !t;
+
+                    t = setTimeout(function () {
+                        t = null;
+                    }, time);
+
+                    if (exec) {
+                        res = fn.apply(_self, args);
+                    }
+                } else {
+                    t = setTimeout(function () {
+                        res = fn.apply(_self, args);
+                    }, time);
+                }
+                return res;
+            }
+            debounced.remove = function () {
+                clearTimeout(t);
+                t = null;
+            }
+            return debounced;
+        }
+
+        var t = null;
+        function debounce(fn, time) {
+            clearTimeout(t);
+            t = setTimeout(function () {
+                fn();
+            }, time)
+        }
+
+        // 节流
+        function throttle(fn, delay) {
+            var t = null,
+                begin = new Data().getTime();
+            return function () {
+                var _self = this,
+                    args = arguments,
+                    cur = new Data().getTime();
+                clearTimeout(t);
+                if (cur - begin >= delay) {
+                    fn.apply(_self, args);
+                    begin = cur;
+                } else {
+                    t = setTimeout(function () {
+                        fn.apply(_self, args);
+                    }, delay)
+                }
+            }
+        }
+
+        // 重新整理数据
+
+        function sortData(fields, datas) {
+            var cache = {};
+            return function (mapping_field, sortType) {
+                if (sortType !== 'singe' && sortType !== 'multi') {
+                    return (new Error(" 错误 "))
+                }
+                fields.forEach(function (field) {
+                    var _id = field.id;
+                    cache[_id] = [];
+                    datas.forEach(function (elem) {
+                        var mapping_val = elem[mapping_field];
+                        if (sortType == 'singe') {
+                            if (mapping_val == _id) {
+                                cache[_id].push(elem);
+                            }
+                        } else if (sortType == 'multi') {
+                            var _arr = mapping_val.splice(',');
+                            _arr.forEach(function (val) {
+                                if (val == _id) {
+                                    cache[_id].push(val);
+                                }
+                            })
+                        }
+
+                    })
+                })
+            }
+        }
+        // 数组扁平化的两种写法
+        Array.prototype.myFlat = function () {
+            var _arr = this,
+                toStr = {}.toString,
+                fArr = [];
+            if (toStr.call(_arr) !== '[object Array]') {
+                console.log(new Error('该方法只适用于数组'))
+            }
+            _arr.reduce(function (prev, elem) {
+                return prev.concat(
+                    toStr.call(elem) === '[object Array]' ? elem.myFlat() : elem
+                )
+            }, [])
+        }
+        const flat4 = arr =>
+            arr.reduce(
+                (prev, elem) =>
+                    prev.concat(
+                        {}.toString.call(elem) === '[object Array]' ? flat4(elem) : elem
+                    ),
+                [])
+
+
+        Array.prototype.myNewReduce = function (fn, initialValue) {
+            var arr = this,
+                len = arr.length,
+                args = arguments[2] || window;
+            for (var i = 0; i < len; i++) {
+                initialValue = fn.apply(arr, [initialValue, arr[i], i, arr]);
+            }
+            return initialValue
+        }
+
+
+        var x = 1;
+        function f(x, y) {
+            console.log(x);
+            var x = 2;
+            y = function () {
+                x = 3;
+                console.log(x, this.x)
+            };
+            y();
+            console.log(x);
+        }
+        f();
+        console.log(x);
+
+
+    </script>
+</body>
+
+</html>

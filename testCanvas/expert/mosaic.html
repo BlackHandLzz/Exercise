@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas">
+
+    </canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.querySelector('#canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            var ctx = canvas.getContext('2d');
+
+            // 绘图 + 位移  drawImage(imgae,x,y)
+            // 绘图 + 位移 + 缩放 drawImage(image,x,y,width,height)
+            // 绘图 + 裁切 + 位移 + 缩放 drawImage(image,x1,y1,width1,height1,x2,y2,width2,height2)
+
+            const img = new Image();
+            img.src = './wns.jpg';
+            const size = 5;
+            img.onload = function () {
+
+                const { width, height } = img;
+                ctx.drawImage(img, 0, 0, width, height);
+
+                const imgDt = ctx.getImageData(0, 0, width, height);
+                console.log(imgDt);
+
+                //  添加马赛克
+                const data = imgDt.data;
+                for (let y = 0; y < height; y += size) {
+                    for (let x = 0; x < width; x += size) {
+                        const ind = (y * width + x) * 4;
+                        const [r, g, b] = [
+                            data[ind],
+                            data[ind + 1],
+                            data[ind + 2],
+                        ];
+                        ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+                        ctx.fillRect(x, y, size, size);
+                    }
+
+                }
+
+            }
+
+        }
+    </script>
+</body>
+
+</html>

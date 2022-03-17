@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cutImage</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas">
+
+    </canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.querySelector('#canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            var ctx = canvas.getContext('2d');
+            // 图片数量
+            const len = 8;
+            // 宽高
+            const size = 256;
+            // 单前帧
+            let fm = 0;
+
+            const img = new Image();
+            img.src = './bomb.jpg';
+            img.onload = draw;
+            function draw() {
+                ctx.drawImage(img, fm * size, 0, size, size, 0, 0, size, size);
+                fm++;
+                if (fm == len) {
+                    fm = 0;
+                };
+
+            }
+            setInterval(function () {
+                draw()
+                // for (let i = 0; i < img.width; i += size) {
+
+                // }
+            }, 200)
+
+        }
+    </script>
+</body>
+
+</html>

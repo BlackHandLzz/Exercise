@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clock</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas">
+        听不懂了，再听下去也是浪费时间，后续再学
+    </canvas>
+    <script>
+        var canvas = document.querySelector('#canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        var ctx = canvas.getContext('2d');
+
+        // 粒子尺寸
+        const partSize = 24;
+        // 所有粒子的边界
+        const edge = { left: 0, right: width, bottom: height - 50 };
+
+        /* 粒子对象 */
+        class Particle {
+            constructor(width, height) {
+                // 尺寸
+                this.width = width;
+                this.height = height;
+                // 位置
+                this.pos = { x: 0, y: 0 };
+                // 1.新生 0：坠落
+                this.state = 1;
+                // 父级
+                this.parent = null;
+                //速度
+                this.vx = this.getVx();
+                this.vy = 0.002;
+                // 重力
+                this.gravity = 0.03;
+                // 弹力
+                this.bounce = -0.85;
+            }
+            // 获取X轴的速度，避免直上直下的弹动
+            //vx取值范围是[-0.5,05],但不能在[-0.15,0.15]之间
+            getVx() {
+                let vx = Math.random() * 1 - 0.5;
+                if (Math.abs(vx) < 0.15) {
+                    return this.getVx();
+                } else {
+                    return vx
+                }
+            }
+            // 更新数据
+            update(diff) {
+                // 结构状态
+                const { state, width, height, pos, gravity, bounce } = this;
+                //结构边界
+                const { left, right, bottom } = edge;
+                // 如果粒子的状态为坠落状态
+                if (!state) {
+
+                }
+
+            }
+            // 绘图方法
+            draw(ctx) {
+                // 结构位置，尺寸，缩放
+                const { pos: { x, y }, width, height } = this;
+                ctx.save();
+                ctx.fillRect(x, y, width, height);
+                ctx.restore();
+            }
+
+        }
+        // 粒子发射器
+        class Gun {
+            constructor(width, height) {
+                // 尺寸
+                this.width = width;
+                this.height = height;
+                // 位置
+                this.pos = { x: 0, y: 0 };
+                // 状态
+                // 1：粒子位置有粒子
+                // 0：粒子位置无粒子
+                this._state = 0;
+                this.children = [];
+            }
+            get state() {
+                return this._state;
+            }
+            set state(val) {
+
+            }
+
+            // 新建粒子
+            createParticle() {
+                const { pos: { x, y }, width, height, children } = this;
+
+            }
+        }
+    </script>
+</body>
+
+</html>

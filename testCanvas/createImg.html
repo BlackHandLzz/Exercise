@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas">
+
+    </canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.querySelector('#canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            var ctx = canvas.getContext('2d');
+
+            const [width, height] = [400, 200];
+
+            //const imgDt = new ImageData(width, height);
+            const imgDt = ctx.createImageData(width, height);
+            console.log(imgDt);
+            imgDt.data.forEach((item, index) => {
+                imgDt.data[index] = 100;
+            });
+            ctx.putImageData(imgDt, 0, 0);
+
+            // 获取像素
+            const imgDt2 = ctx.getImageData(0, 0, 1, 1);
+            console.log(imgDt2);
+        }
+    </script>
+</body>
+
+</html>

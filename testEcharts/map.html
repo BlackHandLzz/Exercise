@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mapEchart</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #main {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+
+    </div>
+    <script src="https://cdn.bootcss.com/echarts/3.7.1/echarts.min.js"></script>
+    <script src="./china.js"></script>
+    <script>
+        window.onload = function () {
+            // js
+            const dom = document.querySelector('#main');
+            const myChart = echarts.init(dom);
+            console.log(myChart);
+
+            const option = {
+                title: {
+                    text: '中国地图',
+                    left: 'center'
+                },
+                // series: [
+                //     {
+                //         type: 'map',
+                //         map: 'china'
+                //     }
+                // ],
+                geo: {
+                    map: 'china',
+                    roam: true,
+                    zoom: 1,
+                    nameMap: {
+                        '山东': '山东省'
+                    },
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#004981',
+                            borderColor: 'yellow',
+                        },
+                        emphasis: {
+                            areaColor: 'red',
+                            itemStyle: {
+                                color: '#029fd4'
+                            },
+                            label: {
+                                show: true
+                            },
+                        },
+                        select: {
+                            label: {
+                                color: "#fff"
+                            },
+                            itemStyle: {
+                                areaColor: 'red'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: "pm2.5",
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    data: [
+                        {
+                            name: '海门',
+                            value: [121.15, 31.89, 9]
+                        },
+                        {
+                            name: '鄂尔多斯',
+                            value: [109.781327, 39.608266, 12]
+                        },
+                        {
+                            name: '招远',
+                            value: [120.38, 37.35, 18]
+                        }
+                    ],
+                    symbolSize: function (val) {
+                        return val[2]
+                    }
+                }]
+            };
+            myChart.setOption(option);
+
+
+            // json
+            // fetch("https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json")
+            //     .then((res) => res.json())
+            //     .then(data => {
+            //         echarts.registerMap('china', data);
+            //         const myChart = echarts.init(document.querySelector('#main'));
+            //         const option = {
+            //             title: {
+            //                 text: '中国地图',
+            //                 left: 'center'
+            //             },
+            //             series: [
+            //                 {
+            //                     type: 'map',
+            //                     map: 'china'
+            //                 }
+            //             ]
+            //         };
+            //         myChart.setOption(option);
+            //     })
+
+        }
+    </script>
+</body>
+
+</html>

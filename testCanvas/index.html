@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas">
+
+    </canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.querySelector('#canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            var ctx = canvas.getContext('2d');
+
+            ctx.beginPath();
+            ctx.moveTo(400, 50);
+            ctx.setLineDash([8, 8]);
+            ctx.lineTo(400, 600);
+            ctx.stroke();
+
+            ctx.font = '18px Arial';
+
+            //  水平对齐 textAlign: start left end right center
+            ctx.textAlign = 'end';
+            // 垂直对齐  textBaseline  top middle  bottom
+            //ctx.textBaseLine = ''
+
+            // 填充文字
+            //ctx.fillText(text,x,y,maxWidth),
+            ctx.fillText('垃圾', 400, 80)
+            // 描边文字
+            //ctx.strokeText(text,x,y,maxWidth)
+
+            ctx.textAlign = 'start';
+            ctx.fillText('start', 400, 160);
+
+            // 获取文字宽度的方法    measureText(text)
+
+            const text = "canvas-------------";
+            const [x, y] = [50, 100];
+            const height = 60;
+            ctx.font = '36px Arial';
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            const width = ctx.measureText(text).width + 36;
+            ctx.strokeRect(x, y, width, height);
+            ctx.fillText(text, x + width / 2, y + height / 2)
+
+        }
+    </script>
+</body>
+
+</html>

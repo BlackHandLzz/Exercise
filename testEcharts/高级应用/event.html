@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #main {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>Echart事件</header>
+    <div id="main">
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.1.2/echarts.min.js"></script>
+    <script>
+        window.onload = function () {
+            const dom = document.querySelector('#main');
+            const myChart = echarts.init(dom);
+            console.log(myChart);
+
+            const option = {
+                title: {
+                    text: '饼图程序调用高亮示例',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/> {b} : {c}  ({d} %)'
+                },
+                legend: {
+                    orient: 'vertival',
+                    left: 'left',
+                    dta: [
+                        '销量', '库存', '直接访问', '联盟广告', '视屏广告', '收索引擎'
+                    ]
+                },
+                // xAxis: [
+                //     {
+                //         type: 'category',
+                //         data: [
+                //             'html', 'js', 'css', 'vue', 'react'
+                //         ]
+                //     }
+                // ],
+                // yAxis: [
+                //     {
+                //         type: 'value'
+                //     }
+                // ],
+                series: [
+                    {
+                        name: '销量',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: [
+                            { value: 335, name: '销量' },
+                            { value: 310, name: '库存' },
+                            { value: 234, name: '直接访问' },
+                            { value: 135, name: '联盟广告' },
+                            { value: 635, name: '视屏广告' },
+                            {
+                                value: 1335,
+                                name: '收索引擎',
+                                label: {
+                                    formatter: [
+                                        '{a|这是一段文职}',
+                                        '{b|这是一段文职}',
+                                    ].join('\n'),
+                                    backgroundColor: '#eee',
+                                    color: '#000',
+                                    padding: [10, 10, 10, 10],
+                                    rich: {
+                                        a: {
+                                            color: 'yellow',
+                                            fontSize: 16,
+                                            lineHeight: 24,
+
+                                        },
+
+                                    }
+                                }
+                            },
+                        ],
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0,0,0,0.5)'
+                            }
+                        }
+                    },
+                ]
+            };
+            myChart.setOption(option);
+            myChart.on('click', function (params) {
+                console.log(params)
+            });
+            myChart.on('legendselectchanged', function (params) {
+                console.log(params)
+            });
+            // let curInd = -1;
+            // setInterval(function () {
+            //     const dataLen = option.series[0].data.length;
+            //     // 取消之前高亮的图形
+            //     myChart.dispatchAction({
+            //         type: 'downplay',
+            //         seriesIndex: 0,
+            //         dataIndex: curInd,
+            //     });
+            //     // 当前索引递增，不能超过总数
+            //     curInd = (curInd + 1) % dataLen;
+            //     // 高亮当前图新
+            //     myChart.dispatchAction({
+            //         type: 'highlight',
+            //         seriesIndex: 0,
+            //         dataIndex: curInd,
+            //     });
+            //     // 显示tooltip
+            //     myChart.dispatchAction({
+            //         type: 'showTip',
+            //         seriesIndex: 0,
+            //         dataIndex: curInd,
+            //     });
+            // }, 1000)
+        }
+    </script>
+</body>
+
+</html>

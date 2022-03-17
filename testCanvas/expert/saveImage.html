@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas">
+
+    </canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.querySelector('#canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            var ctx = canvas.getContext('2d');
+            const { width, height } = canvas;
+            // 保存状态 ，成对出现
+            // ctx.save();
+            // ctx.fillStyle = 'red';
+            // ctx.fillRect(0, 0, 400, 200);
+            // ctx.restore();
+
+
+            // 变换，旋转，缩放  translate(x,y),
+            // ctx.translate(100, 100);
+            // ctx.rotate(Math.PI / 4);
+            // ctx.scale(0.5, 0.5);   // 缩放值是0~1
+            // ctx.fillRect(0, 0, 300, 200);
+
+            setInterval(function () {
+                ctx.clearRect(0, 0, width, height);
+                draw();
+            }, 1000)
+
+
+
+
+            function draw() {
+                ctx.save();
+
+                ctx.translate(canvas.width / 2, canvas.height / 2)
+                ctx.rotate(-Math.PI / 2);
+
+                // 内框
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(0, 0, 145, 0, Math.PI * 2);
+                ctx.strokeStyle = 'red';
+                ctx.lineWidth = 20;
+                ctx.stroke();
+                ctx.restore();
+
+                // 外框
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(0, 0, 155, 0, Math.PI * 2);
+                ctx.strokeStyle = 'blue';
+                ctx.lineWidth = 9;
+                ctx.stroke();
+                ctx.restore();
+
+                // 刻度
+                ctx.save();
+                for (let i = 0; i < 4; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(90, 0);
+                    ctx.lineTo(120, 0);
+                    ctx.lineWidth = 15;
+                    ctx.strokeStyle = 'yellow';
+                    ctx.stroke();
+                    ctx.rotate(Math.PI / 2);
+                }
+                ctx.restore();
+
+                // 小时
+                ctx.save();
+                for (let i = 0; i < 12; i++) {
+                    if (i % 3) {
+                        ctx.beginPath();
+                        ctx.moveTo(90, 0);
+                        ctx.lineTo(120, 0);
+                        ctx.lineWidth = 6;
+                        ctx.strokeStyle = 'green';
+                        ctx.stroke();
+                    }
+                    ctx.rotate(Math.PI / 6);
+                }
+                ctx.restore();
+
+                // 分钟
+                ctx.save();
+                for (let i = 0; i < 60; i++) {
+                    if (i % 5) {
+                        ctx.beginPath();
+                        ctx.moveTo(114, 0);
+                        ctx.lineTo(120, 0);
+                        ctx.lineWidth = 3;
+                        ctx.strokeStyle = 'green';
+                        ctx.stroke();
+                    }
+                    ctx.rotate(Math.PI / 30);
+                }
+                ctx.restore();
+
+
+                // 基于当前时间获取时，分，秒的弧度
+                const { rh, rm, rs } = getRadian();
+
+                // 时针 
+                ctx.save();
+                ctx.rotate(rh);
+                ctx.beginPath();
+                ctx.moveTo(-20, 0);
+                ctx.lineTo(65, 0);
+                ctx.lineWidth = 9;
+                ctx.strokeStyle = 'yellow';
+                ctx.stroke();
+                ctx.restore();
+
+                // 指针
+                ctx.save();
+                ctx.rotate(rm);
+                ctx.beginPath();
+                ctx.moveTo(-28, 0);
+                ctx.lineTo(80, 0);
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = 'red';
+                ctx.stroke();
+                ctx.restore()
+
+                // 秒针
+                ctx.save();
+                ctx.rotate(rs);
+                ctx.beginPath();
+                ctx.moveTo(-30, 0);
+                ctx.lineTo(88, 0);
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = 'blue';
+                ctx.stroke();
+                ctx.restore()
+
+                // 圆弧中心点
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(0, 0, 10, 0, Math.PI * 2);
+                ctx.fillStyle = 'red';
+                ctx.fill();
+                ctx.restore();
+
+                ctx.restore();
+            }
+
+            // 基于当前时间获取弧度
+            function getRadian() {
+                let date = new Date();
+                let h = date.getHours();
+                if (h > 12) { h -= 12 };
+                let m = date.getMinutes();
+                let s = date.getSeconds();
+                let rh = Math.PI * 2 * h / 12 + Math.PI * 2 * m / 12 / 60 + Math.PI * 2 * s / 12 / 60 / 60;
+                let rm = Math.PI * 2 * m / 60 + Math.PI * 2 * s / 60 / 60;
+                let rs = Math.PI * 2 * s / 60;
+                return { rh, rm, rs };
+            }
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table border="1">
+        <caption>这是一个标题</caption>
+        <thead>
+            <tr>
+                <th>
+                    id
+                </th>
+                <th>
+                    姓名
+                </th>
+                <th>
+                    年龄
+                </th>
+                <th>
+                    爱好
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    1
+                </td>
+                <td>
+                    小名
+                </td>
+                <td>
+                    23
+                </td>
+                <td>
+                    有用
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    1
+                </td>
+                <td>
+                    小名
+                </td>
+                <td>
+                    23
+                </td>
+                <td>
+                    有用
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    1
+                </td>
+                <td>
+                    小名
+                </td>
+                <td>
+                    23
+                </td>
+                <td>
+                    有用
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    这是一个底部
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script>
+        var xhr = (function () {
+            function doAjax(opt) {
+                if (window.XMLHttpRequest) {
+                    var o = new XMLHttpRequest();
+                } else {
+                    var o = new ActiveXObject('Microsoft.XMLHTTP');
+                }
+                if (!o) {
+                    throw new Error("该浏览器不支持ajax请求")
+                };
+                var opt = opt || {},
+                    method = opt.method.toUpperCase() || "GET",
+                    url = opt.url,
+                    async = '' + opt.async == false ? false : true,
+                    data = opt.data || null,
+                    dataType = opt.dataType || 'JSON',
+                    jsonp = opt.jsonp || 'cb',
+                    jsonpCallBack = opt.jsonpCallBack || 'jQuery' + randomNum() + '_' + new Date(),
+                    timeout = opt.timeout || 30000,
+                    success = opt.success || function () { },
+                    error = opt.error || function () { },
+                    complete = opt.complete || function () { },
+                    t = null;
+                if (!url) {
+                    throw new Error("请填写url地址！")
+                }
+
+                if (dataType.toUpperCase() === 'JSON' && type !== 'GET') {
+                    throw new Error("如果dataType为json,请将type设置为GET")
+                }
+
+                if (dataType.toUpperCase() === 'JSON') {
+                    var oScript = document.createElement('script');
+                    oScript.src = url.indexOf('?') == -1
+                        ? url + '?' + jsonp + '=' + jsonpCallBack
+                        : url + '&' + jsonp + '=' + jsonpCallBack;
+                    document.body.appendChild(oScript);
+                    document.body.removeChild(oScript);
+
+                    window[jsonpCallBack] = function (data) {
+                        success(data);
+                    }
+                    return
+                }
+
+                o.onreadystatechange = function () {
+                    if (o.readyState == 4) {
+                        if ((o.status >= 200 && o.status < 300) || o.status == 304) {
+                            switch (dataType.toUpperCase()) {
+                                case 'JSON':
+                                    success(JSON.parse(o.responseText));
+                                    break;
+                                case 'TEXT':
+                                    success(o.responseText);
+                                    break;
+                                case 'XML':
+                                    success(o.responseXML);
+                                    break;
+                                default:
+                                    success(JSON.parse(o.responseText));
+                            }
+                        } else {
+                            error();
+                        }
+                        complete();
+                        clearTimeout(t);
+                        t = null;
+                        o = null;
+                    }
+                }
+
+                o.open(method, url, async);
+                o.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+                o.send(method === "GET" ? null : formatData(data));
+
+                t = setTimeout(function () {
+                    throw new Error("this request has been timeout for" + url);
+                    o.abort();
+                    clearTimeout(t);
+                    t = null;
+                    o = null;
+                }, timeout)
+            }
+
+            function formatData(data) {
+                var str = '';
+                for (var key in data) {
+                    str += key + '=' + data[key] + '&'
+                };
+                return str.replace(/&$/, '');
+            }
+
+            return {
+                ajax: function (opt) {
+                    doAjax(opt)
+                },
+                get: function (url, callback) {
+                    doAjax({
+                        method: 'get',
+                        url,
+                        success: callback
+                    })
+                },
+                post: function (url, data, callback) {
+                    doAjax({
+                        method: 'post',
+                        url,
+                        data,
+                        success: callback
+                    })
+                },
+            }
+        })()
+
+        // xhr.ajax({
+        //     method: 'get',
+        //     url: '/index.html'
+        // })
+
+
+
+        // var ajaxDomain = (function () {
+        //     function createIframe(frameId, frameUrl) {
+        //         var frame = document.createElement('iframe');
+        //         frame.id = frameId;
+        //         frame.src = frameUrl;
+        //         frame.dispaly = 'none';
+        //         return frame;
+        //     }
+
+        //     return function (opt) {
+        //         document.domain = opt.basicDomain;
+        //         var frame = createIframe(opt.frameId, opt.frameUrl);
+        //         frame.onload = function () {
+        //             var $$ = document.getElementById(opt.frameId).contentWindow.$;
+        //             $$.ajax({
+        //                 url,
+        //                 type,
+        //                 data,
+        //                 success,
+        //                 error
+        //             })
+        //         };
+        //         document.body.appendChild(frame);
+        //     }
+        // })();
+        // ajaxDomain({
+        //     basicDomain: '',
+        //     frameId: '',
+        //     frameUrl: '',
+        //     url,
+        //     type,
+        //     data,
+        //     success,
+        //     error
+        // })
+
+
+        // var a = 0,
+        //     b = 0;
+        // function A(a) {
+        //     A = function (b) {
+        //         console.log(a + b++);
+        //     }
+        //     alert(a++)
+        // }
+        // A(1);
+        // A(2);
+
+        var cookie = {
+            set: function (key, value, time) {
+                document.cookie = key + '=' + value + ';max-age=' + time;
+                return this;
+            },
+            get: function (key) {
+                var newCookie = document.cookie.split('; ');
+                for (var i = 0; i < newCookie.length; i++) {
+                    var cookieKey = newCookie[i].split('=');
+                    if (key === cookieKey[0]) {
+                        return cookieKey[1];
+                    }
+                };
+                return this;
+            },
+            delete: function (key) {
+                this.set(key, '', -1);
+            },
+        }
+
+        cookie.set('name', '小明', 100000).set('name2', '小白', 100000);
+
+        console.log(cookie.get('name'))
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #main {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>数据集</header>
+    <div id="main">
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.1.2/echarts.min.js"></script>
+    <script>
+        window.onload = function () {
+            const dom = document.querySelector('#main');
+            const myChart = echarts.init(dom);
+            console.log(myChart);
+
+            let detail1 = [];
+            let detail2 = [];
+            let detail3 = [];
+
+            let radom = function (num) {
+                return (Math.random() * num).toFixed(1);
+            }
+
+            for (let i = 1; i < 100; i++) {
+                detail1.push([radom(30), radom(20), radom(30)]);
+                detail2.push([radom(30), radom(20), radom(30)]);
+                detail3.push([radom(30), radom(20), radom(30)])
+            }
+
+
+            const option = {
+                legend: {},
+                tooltip: {},
+                xAxis: [
+                    {
+                        type: 'category',
+                        min: 'dataMin',
+                        max: 'dataMax'
+                    },
+
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        min: 'dataMin',
+                        max: 'dataMax'
+                    },
+
+                ],
+                // 缩放坐标轴
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        xAxisIndex: 0,
+                        start: 20,
+                        end: 50
+                    },
+                    {
+                        type: 'slider',
+                        yAxisIndex: 0,
+                        start: 20,
+                        end: 50
+                    },
+                    {
+                        type: 'inside',
+                        xAxisIndex: 0
+                    },
+                    {
+                        type: 'inside',
+                        yAxisIndex: 0
+                    }
+                ],
+                // 控制颜色显示隐藏
+                visualMap: {
+                    //type: 'continuous',
+                    type: 'piecewise',
+                    min: 0,
+                    max: 30,
+                    range: [4, 15],
+                },
+                series: [
+                    {
+                        name: '系列1',
+                        type: 'scatter',
+                        itemStyle: {
+                            opacity: 0.8
+                        },
+                        symbolSize: function (val) {
+                            return val[2]
+                        },
+                        data: detail1
+                    },
+                    {
+                        name: '系列2',
+                        type: 'scatter',
+                        itemStyle: {
+                            opacity: 0.8
+                        },
+                        symbolSize: function (val) {
+                            return val[2]
+                        },
+                        data: detail2
+                    },
+                    {
+                        name: '系列3',
+                        type: 'scatter',
+                        itemStyle: {
+                            opacity: 0.8
+                        },
+                        symbolSize: function (val) {
+                            return val[2]
+                        },
+                        data: detail3
+                    },
+
+                ]
+            };
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+
+</html>

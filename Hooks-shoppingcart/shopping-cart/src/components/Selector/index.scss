@@ -1,0 +1,27 @@
+.selector {
+    margin-top: .15rem;
+
+    h2 {
+        font-size: .16rem;
+        padding: .1rem 0;
+    }
+
+    button, input {
+        width: .2rem;
+        height: .2rem;
+        background-color: #fff;
+        border: .01rem solid #999;
+
+        font-size: .13rem;
+        box-sizing: border-box;
+    }
+
+    button {
+        border-radius: 50%;
+    }
+
+    input {
+        text-align: center;
+        margin: 0 .05rem;
+    }
+}

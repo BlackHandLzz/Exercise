@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6测试</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div>
+        神马啊
+    </div>
+    <script>
+        // let foo = 'outer';
+        // function bar(func = () => foo) {
+        //     let foo = 'inner';
+        //     console.log(func());
+        // }
+        // bar();
+        // 函数的扩展（3.25）
+        // 1 参数的默认值及使用
+        //  （1）匿名函数func返回foo,在这个单独作用域里面，没有定义foo,所以foo指向外层的全局变量
+        // 2 rest变现形式为...,获取函数多余的参数放入数组，
+        // 3 严格模式 'use strict' 参数使用了默认值,解构赋值和扩展运算符，内部不能用，解决方法，1，全局定义，2，包在一个无参数的立即执行函数里面
+        // 4 name属性，返回该函数的函数名 
+        //   （1） 匿名函数es5返空字符串，（2）函数赋值给变量，返回原本函数名，（3）bind返回函数，name前会加上bound
+        // 5 箭头函数 ！this指向是固定的，定义对象的方法里面没有this
+        // 6 尾调用优化 某个函数的最后一步是调用另一个函数
+
+        // 数组的扩展（3.25）
+        // 1 (1)扩展运算符含义 ...[]  将一个数组转为用逗号分隔的参数序列  (2) 替代了apply，
+        //   （3）应用 【1】复制数组  ES5:concat, 浅拷贝，修改引用指向值，会反应到新数组 【2】合并数组 【3】用于数组赋值，放最后一位 【4】将字符串转为真正的数组
+        // 2 Array.from(); 将两类对象转为真正的数组
+        // 3 Array.of();  将一组值，转换为数组
+        // 4 find(value,index,arr),返回成员 和 findIndex(value,index,arr)返回成员位置，不符合返回-1
+        // 5 fill（）使用给定值，填充一个数组
+        // 6 includes（）某个数组是否包含给定的值
+        // 7 flat() flatMap()  数组里面嵌套的数组拉平，变成一维数组，对原来的数组无影响，默认一层，里面定义参数几层，Infinity不管多少层，跳过空位，后者只展开一层
+        // 8 数组的空位，去除空位
+        // 9 sort() 排序稳定
+
+
+        var a = {
+            age: 12,
+            name: 'teery',
+            like: [
+                '读书', '游泳'
+            ],
+            no: {
+                eat: 1,
+                pink: '什么'
+            },
+            egg: function () {
+                console.log(this.age);
+            }
+        }
+
+
+        // 深拷贝
+        function deep(tr, content) {
+            var ts = tr;
+            for (var obj in content) {
+                if (typeof content[obj] === 'object') {
+                    // 说明这个obj可能是一个对象或者数组
+                    ts[obj] = content[obj].constructor === Array ? [] : {};
+                    deep(ts[obj], content[obj]);
+                } else {
+                    // 说明可以直接赋值
+                    ts[obj] = content[obj];
+                }
+            }
+            return ts;
+        }
+        //console.log(a, '这是数据吗');
+        var b = deep({}, a);
+        b.no.eat = 3;
+        console.log(a, b);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大屏图</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1920px;
+            height: 1080px;
+            /* overflow: hidden; */
+        }
+
+        .header {
+            height: 99px;
+            width: 100%;
+            background: #000;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+        }
+
+        .box {
+            display: flex;
+
+        }
+
+        .left-box,
+        .center-box>div,
+        .right-box {
+            height: 981px;
+            overflow: hidden
+        }
+
+        .left-box>div,
+        .right-box>div {
+            height: 320px;
+            box-sizing: border-box;
+            /* padding: 10px; */
+            background: cornflowerblue;
+            margin-bottom: 7px;
+        }
+
+        #echart7 {
+            width: 100%;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header" style="flex:1">
+        <div style="flex:0 1 33.33%;text-align: left"></div>
+        <h2 style="flex:0 1 33.33%;text-align: center">数据可视化？？？</h2>
+        <div id="time" style="flex:0 1 33.33%;text-align: right;"></div>
+    </header>
+    <div class="box">
+        <div style="flex: 0 1 33%;" class="left-box">
+            <div id="echart1" style="padding: 10px;"></div>
+            <div id="echart2"></div>
+            <div id="echart3"></div>
+        </div>
+        <div style="flex: 0 1 33%;margin: 0 7px 7px 7px;background: cornflowerblue;" class="center-box">
+            <div id="echart4"></div>
+        </div>
+        <div style="flex: 0 1 33%" class="right-box">
+            <div id="echart5"></div>
+            <div id="echart6"></div>
+            <div id="echart7"></div>
+        </div>
+    </div>
+    <script src="./Data.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.1.2/echarts.min.js"></script>
+    <script src="./walden2.js"></script>
+    <script src="../china.js"></script>
+    <script type="text/javascript"
+        src="https://api.map.baidu.com/api?v=2.0&ak=Lq1NaPgPiUxLGGGcgEO6G6laLaztOwsH"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+    <script src='./echart1.js'></script>
+    <script src='./echart2.js'></script>
+    <script src='./echart3.js'></script>
+    <script src='./echart4.js'></script>
+    <script src='./echart5.js'></script>
+    <script src='./echart6.js'></script>
+    <script src='./echart7.js'></script>
+    <script>
+        const myChart = echarts.init(document.querySelector('.box'));
+        window.onresize = function () {
+            myChart.resize();
+        }
+    </script>
+</body>
+
+</html>

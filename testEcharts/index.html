@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #main {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+
+    </div>
+    <script src="https://cdn.bootcss.com/echarts/3.7.1/echarts.min.js"></script>
+    <script>
+        window.onload = function () {
+            const dom = document.querySelector('#main');
+            const myChart = echarts.init(dom);
+            console.log(myChart);
+
+            const option = {
+                title: {
+                    text: 'echarts',
+                    subtext: 'echarts入门实例',
+                    left: 'center',
+                    textStyle: {
+                        color: '#333',
+                        fontSize: '28'
+                    },
+                    subtextStyle: {
+                        color: 'red',
+                    }
+                },
+                grid: {
+                    top: '150'
+                },
+
+                legend: {
+                    data: [
+                        '人数', '难度'
+                    ],
+                    top: '80'
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {},
+                        dataView: {},
+                        restore: {},
+                        dataZoom: {},
+                        magicType: {
+                            type: ['line', 'bar', 'stack', 'tiled']
+                        }
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                xAxis: {
+                    name: '前端',
+                    data: [
+                        'html', 'css', 'js'
+                    ]
+                },
+                yAxis: {
+                    name: '比例',
+                    splitNumber: 2,
+                    maxInterval: 5,
+                },
+                series: [
+                    {
+                        name: '人数',
+                        type: 'bar',
+                        data: [
+                            [0, 5],
+                            [1, 15],
+                            [2, 35],
+                        ],
+                        markPoint: {
+                            data: [
+                                { type: 'max' },
+                                { type: 'min' }
+                            ]
+                        }
+                    },
+                    {
+                        name: '难度',
+                        type: 'bar',
+                        data: [
+                            10, 15, 25
+                        ],
+                        markLine: {
+                            data: [
+                                { type: 'average' }
+                            ]
+                        }
+                    }
+                ]
+            };
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+
+</html>

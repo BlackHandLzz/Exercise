@@ -1,0 +1,51 @@
+/* 通过定位实现 */
+/* .wrap {
+    position: relative;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.wf-item {
+    position: absolute;
+    background-color: #ededed;
+    overflow: hidden;
+}
+
+.wf-item img {
+    display: block;
+    width: 100%;
+} */
+
+/* 通过浮动实现 */
+.wrap {
+    position: relative;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.wf-item {
+    position: absolute;
+    background-color: #ededed;
+    box-shadow: 1px 2px 3px #ccc;
+    overflow: hidden;
+}
+
+.wf-item:hover {
+    box-shadow: 2px 4px 8px #333;
+    transition: box-shadow 0.3s;
+}
+
+.wf-item img {
+    display: block;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.wf-item .text-box {
+    height: 45px;
+    text-align: center;
+    line-height: 45px;
+    background-color: #FFFFFF;    
+}
+

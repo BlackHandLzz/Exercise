@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则Document</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+    </div>
+    <script>
+        // 正则练习第一天
+        // 1.将字符串中小写数字转换成数组中大写数字
+        // var str = "89312894734";
+        // var ary = ["〇", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+        // str = str.replace(/\d/g, function (arg) {
+        //     return console.log(ary[arg[0]])
+        // })
+        // 2 写一个函数，清空字符串前后的空格  第一想到trim，不考虑兼容直接用，如果不存在使用正则
+        // if (!String.prototype.trim) {
+        //     String.prototype.trim = function (str) {
+        //         return str.replace(/(^\s*)|(\s*$)/g, "")
+        //     }
+        // }
+        // function myTrim() {
+        //     if (typeof trim == "function") {
+        //         return str.trim();
+        //     } else {
+        //         return str.replace(/(^\s*)|(\s*$)/g, "")
+        //     }
+        // }
+
+        // 3 验证字符串的组成规则  ， 第一个必须为数字，后面可以是字母，数字，下划线 ，总长度为5到20位   
+        // var reg1 = /^[0-9](\w+){4,19}/;         // 我写的
+        // var reg = /^\d{1}[\w|_|\d]{4,19}/;  // 原答案
+        // var str = "1m0000jjjsaa08"
+        // console.log(reg1.test(str))
+        // 4 让2013-6-7变成2013.6.7
+        // var reg = /-/g;
+        // var str = "2013-6-7"
+        // console.log(str.replace(reg, "."))
+        //  https://blog.csdn.net/qiqi_77_/article/details/79760003
+
+        // 5 请使用正则取出：Tech,Sales,内容1,内容2
+        // var reg = /Tech| Sales |内容1 | 内容2/g;
+        // var str = 'Tech,rules,Sales,什么啊啊,内容1,内容2,';
+        // console.log(str.match(reg))
+        // 6 var str = "get-element-by-id"  改为驼峰命名
+        // var str = "get-element-by-id"
+        // var res = str.replace(/-(\w)/g, function (e) {
+        //     return e.substring(1).toUpperCase();
+        // })
+        // console.log(res)
+        // 7 单词首字母大写
+        // var reg = /\b(\w+)\b/g;
+        // var name = "han mei mei";
+        // name = name.replace(reg, function (e) {
+        //     return e.substring(0, 1).toUpperCase() + e.substring(1)
+        // })
+        // console.log(name)
+
+        // var str = "wfefefd";
+        // var newStr = [];
+        // newStr = str.match(/\w{2}/g);
+        // if (str.length % 2 !== 0) {
+        //     newStr.push(str.charAt(str.length - 1) + '_')
+        // }
+        // console.log(newStr)
+
+        /* n的三次方+ 到1的三次方 = m,已知m */
+        // function findNb(m) {
+        //     let n = -1;
+        //     let s = 0;
+        //     for (let i = 1; s < m; i++) {
+        //         s += (i * i * i);
+        //         if (s == m) {
+        //             return n = i;
+        //         }
+        //     }
+        //     return n
+        // }
+        // console.log(findNb(1071225))
+        // console.log(findNb(91716553919377))
+        // console.log(findNb(4183059834009))
+        // console.log(findNb(135440716410000))
+        // console.log(findNb(40539911473216))
+        // console.log(findNb(24723578342962))
+
+        /* 字符串 （） */
+        // function isReg(str) {
+        //     let n = str.split('(').length - 1;
+        //     let m = str.split(')').length - 1;
+        //     if (n == m) {
+        //         return true
+        //     } else {
+        //         return false
+        //     }
+        // }
+        // function validParentheses(parens) {
+        //     var n = 0;
+        //     for (var i = 0; i < parens.length; i++) {
+        //         if (parens[i] == '(') n++;
+        //         if (parens[i] == ')') n--;
+        //         // 考虑到边界情况了
+        //         if (n < 0) return false;
+        //     }
+        //     return n == 0;
+        // }
+
+        // function isReg(str) {
+        //     while (str.length >= 2) str = str.replace(/\(\)/g, '')
+        //     return str ? false : true
+        // }
+
+        // function isReg(str) {
+        //     let n = str.split('()').length - 1;
+        //     return str.length - (n * 2) ? false : true
+        // }
+
+        // console.log(isReg(')))((('))   // 只有（）是正确的
+
+        // function sortNumber(obj, n) {
+        //     let NewObj = obj || [],
+        //         m = 0,
+        //         s = obj.length - 1;
+        //     if (n > obj.length) {
+        //         m = obj[s] + obj[s - 1] + obj[s - 2];
+        //         NewObj.push(m);
+        //         m = 0;
+        //         if (NewObj.length < n) {
+        //             sortNumber(NewObj, n);
+        //         }
+        //     } else {
+        //         NewObj.length = n;
+        //     }
+        //     return NewObj
+        // }
+        // console.log(sortNumber([3, 2, 1], 4));
+
+
+        // function strLink(strList, k) {
+        //     var newList = [],
+        //         j = 0,
+        //         length = strList.length;
+        //     if (!length || k > length) return '';
+        //     while (j + k <= length) {
+        //         newList.push(strList.slice(j, j + k).join(''));
+        //         j++;
+        //     };
+        //     return newList.sort((a, b) => (b.length - a.length))[0];
+        // };
+
+        // function StrSort(strArr, k) {
+        //     var n = strArr.length,
+        //         m = "",
+        //         newArr = [];
+        //     for (var j = 0; j <= (n - 1); j++) {
+        //         for (var i = 0; i < k; i++) {
+        //             if (strArr[i + j]) {
+        //                 m += strArr[i + j];
+        //             }
+        //         }
+        //         newArr.push(m);
+        //         m = "";
+        //     }
+        //     m = newArr.sort(function (a, b) {
+        //         return b.length - a.length
+        //     })[0]
+        //     if (k <= 0 || k > n || n == 0) {
+        //         return "";
+        //     } else {
+        //         return m
+        //     }
+        // }
+        // console.log(StrSort(['aaa', 'bb', 'ccccc', 'ddddd', 'ee'], 2))
+        // console.log(StrSort(["zone", "abigail", "theta", "form", "libe", "zas"], 2))
+        // console.log(StrSort(["ejjjjmmtthh", "zxxuueeg", "aanlljrrrxx", "dqqqaaabbb", "oocccffuucccjjjkkkjyyyeehh"], 1))
+        // console.log(StrSort([], 3))
+        // console.log(StrSort(["itvayloxrp", "wkppqsztdkmvcuwvereiupccauycnjutlv", "vweqilsfytihvrzlaodfixoyxvyuyvgpck"], 2))
+        // console.log(StrSort(["it", "wkppv", "ixoyx", "3452", "zzzzzzzzzzzz"], 3))
+        // console.log(StrSort(["it", "wkppv", "ixoyx", "3452", "zzzzzzzzzzzz"], 15))
+        // console.log(StrSort(["wlwsasphmxx", "owiaxujylentrklctozmymu", "wpgozvxxiu"], 2))
+
+        //数独是一种在9x9网格上玩的游戏。游戏的目标是用从1到9的数字填充网格的所有单元格，这样九个3x3子网格(也称为块)的每一列、每一行和每一个都包含从1到9的所有数字。如果满足为true，否则为false
+
+        // validSolution([
+        //     [5, 3, 4, 6, 7, 8, 9, 1, 2],
+        //     [6, 7, 2, 1, 9, 5, 3, 4, 8],
+        //     [1, 9, 8, 3, 4, 2, 5, 6, 7],
+        //     [8, 5, 9, 7, 6, 1, 4, 2, 3],
+        //     [4, 2, 6, 8, 5, 3, 7, 9, 1],
+        //     [7, 1, 3, 9, 2, 4, 8, 5, 6],
+        //     [9, 6, 1, 5, 3, 7, 2, 8, 4],
+        //     [2, 8, 7, 4, 1, 9, 6, 3, 5],
+        //     [3, 4, 5, 2, 8, 6, 1, 7, 9]
+        // ]); // => true
+
+        // => false
+
+
+        function validSolution(arr) {
+            var res = true;
+            for (var i = 0; i < 8; i++) {
+                for (var j = 0; j < 8; j++) {
+                    //console.log(arr[i + 1][j])
+                    if ((arr[i][j] == arr[i][j + 1]) || (arr[i][j] == arr[i + 1][j])) {
+                        res = false;
+                    }
+                }
+
+            }
+            return res;
+        }
+        // let a = validSolution([
+        //     [5, 3, 4, 6, 7, 8, 9, 1, 2],
+        //     [6, 7, 2, 1, 9, 0, 3, 4, 8],
+        //     [1, 0, 0, 3, 4, 2, 5, 6, 0],
+        //     [8, 5, 9, 7, 6, 1, 0, 2, 0],
+        //     [4, 2, 6, 8, 5, 3, 7, 9, 1],
+        //     [7, 1, 3, 9, 2, 4, 8, 5, 6],
+        //     [9, 0, 1, 5, 3, 7, 2, 1, 4],
+        //     [2, 8, 7, 4, 1, 9, 6, 3, 5],
+        //     [3, 0, 0, 4, 8, 1, 1, 7, 9]
+        // ]);
+        let a = validSolution([
+            [5, 3, 4, 6, 7, 8, 9, 1, 2],
+            [6, 7, 2, 1, 9, 5, 3, 4, 8],
+            [1, 9, 8, 3, 4, 2, 5, 6, 7],
+            [8, 5, 9, 7, 6, 1, 4, 2, 3],
+            [4, 2, 6, 8, 5, 3, 7, 9, 1],
+            [7, 1, 3, 9, 2, 4, 8, 5, 6],
+            [9, 6, 1, 5, 3, 7, 2, 8, 4],
+            [2, 8, 7, 4, 1, 9, 6, 3, 5],
+            [3, 4, 5, 2, 8, 6, 1, 7, 9]
+        ]); // => true
+        //console.log(a)
+
+        // var str = "apples, pears # and bananas\ngrapes\nbananas !apples";
+        // //结果为"apples, pears\ngrapes\nbananas"
+        // console.log(newStr(str, ["#", "!"]))
+
+        // function newStr(str, arr) {
+        //     return str.replace(/(^#)(.*)(\n$)/gim, function (key) {
+        //         return key
+        //     })
+        // }
+
+        // j++, i++, j--,i--  ,   j++, i++, j--,i--
+
+        var str = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        function snail(str) {
+            var len1 = str.length,
+                leng2 = str[0].length,
+                newStr = [];
+            for (var i = 0; i < len1; i++) {
+                for (var j = 0; j < len2; j++) {
+                    if (j >= i) {
+                        newStr.push(str[i][j])
+                    }
+                }
+            }
+            return newStr
+        }
+        console.log(snail(str))
+    </script>
+</body>
+
+</html>

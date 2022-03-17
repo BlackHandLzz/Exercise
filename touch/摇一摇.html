@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <script>
+        // 判断当前设备是不是ios
+        function isIos() {
+            var u = window.navigator.userAgent;
+            return !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+        }
+        // 封装节流
+        function throttle(fn, delay = 500, start = true) {
+            if (typeof fn !== "function") {
+                return console.error("请传入一个函数")
+            }
+            let timer = 0;
+            return function (...arg) {
+                let _this = this;
+                if (timer) {
+                    return
+                }
+                (start) && fn.apply(_this, arg);
+                timer = setTimeout(() => {
+                    (!start) && fn.apply(_this, arg);
+                    timer = 0;
+                }, delay)
+            }
+        }
+
+
+        // 是否进行了距离的晃动，加速度有一个大幅度的变化
+
+        // fn用户进行了摇一摇之后的活动
+        function shake(fn) {
+            const maxRange = isIos() ? 80 : 65;   // 当用户的加速度两次之间的差值大于这个数。认定用户进行了摇一摇
+            const minRange = 10;
+            // 记录上一次加速度
+            let lastX = 0, lastY = 0, lastZ = 0, isShake = false;
+            // 没有添加防抖，需要添加
+            window.addEventListener("devicemotion", throttle((e) => {
+                let { acceleration } = e;
+                //console.log(e.acceleration, 'shneme')
+                let { x, y, z } = acceleration;
+                let range = Math.abs(x - lastX) + Math.abs(y - lastY) + Math.abs(z - lastZ);
+                if (range > maxRange) {
+                    //fn(e);
+                    isShake = true;
+                } else if (range > minRange && isShake) {
+                    fn(e)
+                    isShake = false;
+                };
+                // 记录加速度
+                lastX = x;
+                lastY = y;
+                lastZ = z;
+            }, 600))
+        }
+        shake(() => {
+            alert("您滑动手机了")
+        })
+
+    </script>
+</body>
+
+</html>

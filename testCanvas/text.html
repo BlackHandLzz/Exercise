@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas">
+
+    </canvas>
+    <script>
+        window.onload = function () {
+            var canvas = document.querySelector('#canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            var ctx = canvas.getContext('2d');
+
+            // 文字
+            ctx.font = 'bold 200px Arial';
+
+            // 投影
+            ctx.shadowColor = "rgba(0,0,0,0.6)";
+            ctx.shadowOffectY = 2;
+            ctx.shadowBlur = 4;
+
+            ctx.fillStyle = '#a76921';
+            ctx.fillText('canvas', 50, 150);
+
+            // 实体描边
+            ctx.strokeStyle = '#f0d5ac';
+            ctx.lineWidth = 9;
+            ctx.strokeText('canvas', 50, 150);
+
+            // 虚线描边
+            ctx.strokeStyle = "#333";
+            ctx.lineWidth = 1;
+            ctx.setLineDash([5, 30]);
+            ctx.strokeText('canvas', 50, 150);
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+
+    </div>
+    <script>
+        // 防抖函数
+        // fn要执行的函数
+        // delay 多长时间之后执行
+        // function debounce(fn, delay = 200, isStart = false) {
+        //     if (typeof fn !== "function") {
+        //         return console.error("请传入一个函数");
+        //     }
+        //     let timer = 0;
+        //     let isFirst = true;  // 第一次触发
+        //     // 返回一个处理过防抖的新函数
+        //     return function (...arg) {
+        //         let _this = this;
+        //         if (isFirst && isStart) {
+        //             fn.apply(_this, arg);
+        //             isFirst = false;
+        //         }
+        //         clearTimeout(timer);
+        //         timer = setTimeout(() => {
+        //             (!isStart) && (fn.apply(_this, arg));
+        //             isFirst = true;
+        //         }, delay);
+        //     }
+        // }
+        // document.addEventListener("mousemove", debounce((e) => {
+        //     console.log('发生了move', e, this)
+        // })
+
+
+        // 节流
+        function throttle(fn, delay = 200, start = true) {
+            if (typeof fn !== "function") {
+                return console.error("请传入一个函数");
+            }
+            let timer = 0;
+            // 返回一个处理过防抖的新函数
+            return function (...arg) {
+                let _this = this;
+                if (timer) {
+                    return
+                }
+                (start) && fn.apply(_this, arg);
+                timer = setTimeout(() => {
+                    (!start) && fn.apply(_this, arg);
+                    timer = 0;
+                }, delay);
+            }
+        }
+        document.addEventListener("mousemove", throttle((e) => {
+            console.log('发生了move', e, this);
+        }, 500))
+    </script>
+</body>
+
+</html>

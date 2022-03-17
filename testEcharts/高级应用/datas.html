@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #main {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>数据集</header>
+    <div id="main">
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.1.2/echarts.min.js"></script>
+    <script>
+        window.onload = function () {
+            const dom = document.querySelector('#main');
+            const myChart = echarts.init(dom);
+            console.log(myChart);
+
+            // const month = ['1月', '2月', '3月']
+            // const precipitation = [5, 20, 40];
+            // const temperature = [1, 2, 3];
+            const option = {
+                legend: {},
+                tooltip: {},
+                dataset: {
+                    // dimensions: ['大前端', '人数', '难度'],
+                    source: [
+                        ['大前端', '人数', '难度'],
+                        ['html', 200, 250],
+                        ['js', 100, 150],
+                        ['css', 300, 400]
+                    ]
+                    // source: [
+                    //     {
+                    //         '大前端': 'html',
+                    //         '人数': 200,
+                    //         '难度': 250,
+                    //     },
+                    //     {
+                    //         '大前端': 'js',
+                    //         '人数': 100,
+                    //         '难度': 150,
+                    //     },
+                    //     {
+                    //         '大前端': 'css',
+                    //         '人数': 300,
+                    //         '难度': 400,
+                    //     },
+                    // ]
+                },
+                grid: [
+                    {
+                        bottom: '55%'
+                    },
+                    // {
+                    //     top: '55%'
+                    // },
+                ],
+                xAxis: [
+                    {
+                        type: 'category',
+                        gridIndex: 0
+                    },
+                    // {
+                    //     type: 'category',
+                    //     gridIndex: 1
+                    // }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        gridIndex: 0
+                    },
+                    // {
+                    //     type: 'value',
+                    //     gridIndex: 1
+                    // }
+                ],
+                series: [
+                    {
+                        type: 'bar',
+                        // dimensions: ['大前端', '人数', '难度']
+                        encode: {
+                            x: '大前端',
+                            y: '人数',
+                            tooltip: [0, 1, 2]
+                        }
+                    },
+                    {
+                        type: 'bar'
+                    },
+                    // {
+                    //     type: 'bar',
+                    //     seriesLayoutBy: 'row',
+                    //     xAxisIndex: 1,
+                    //     yAxisIndex: 1,
+                    // },
+                    // {
+                    //     type: 'bar',
+                    //     seriesLayoutBy: 'row',
+                    //     xAxisIndex: 1,
+                    //     yAxisIndex: 1,
+                    // },
+                    // {
+                    //     type: 'bar',
+                    //     seriesLayoutBy: 'row',
+                    //     xAxisIndex: 1,
+                    //     yAxisIndex: 1,
+                    // }
+                ]
+            };
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+
+</html>

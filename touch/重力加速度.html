@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            position: absolute;
+            top: calc(50vh-50px);
+            left: calc(50vw-50px);
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        // 判断当前设备是不是ios
+        function isIos() {
+            var u = window.navigator.userAgent;
+            return !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+        }
+        let translateX = 0;
+        var box = document.querySelector("#box");
+        // 监控手机的移动速度和现在吗，每个方向受到的加速度
+        window.addEventListener("devicemotion", (e) => {
+            let { x, y, z } = e.accelerationIncludingGravity;
+            //console.log(e.acceleration, 'shneme')
+            let { x: x2, y: y2, z: z2 } = acceleration;
+            x -= x2;
+            x = isIos() ? -x : x;
+            translateX += x / 4;
+            box.style.transform = `translateX(${translateX})`;
+
+
+        })
+        // 在安卓新版和ios11之后，不能直接使用陀螺仪了，需要域名https  http协议
+        // ios数值与安卓数值刚好相反
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #main {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+
+    </div>
+    <div>
+        多坐标轴的设置方法：
+        1. 在yAxis写入两组数据，统一行间距
+        2. 在series中设置数据时，使用yAxisindex属性设置与哪个y轴相关联
+    </div>
+    <script src="https://cdn.bootcss.com/echarts/3.7.1/echarts.min.js"></script>
+    <script>
+        window.onload = function () {
+            const dom = document.querySelector('#main');
+            const myChart = echarts.init(dom);
+            console.log(myChart);
+
+            const month = ['1月', '2月', '3月']
+            const precipitation = [5, 20, 40];
+            const temperature = [1, 2, 3];
+            const option = {
+                xAxis: {
+                    type: "category",
+                    data: month
+                },
+                yAxis: [
+                    {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: '{value} ml'
+                        },
+                        min: 0,
+                        max: 40,
+                        interval: 4
+                    },
+                    {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: '{value} ℃'
+                        },
+                        min: 0,
+                        max: 10,
+                        interval: 1
+                    }
+                ],
+                series: [
+                    {
+                        name: '降水量',
+                        type: 'bar',
+                        data: precipitation,
+                        yAxisIndex: 0
+                    },
+                    {
+                        name: '温度',
+                        type: 'bar',
+                        data: temperature,
+                        yAxisIndex: 1
+                    },
+                ]
+            };
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+
+</html>

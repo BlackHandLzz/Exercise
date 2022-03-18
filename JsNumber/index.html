@@ -13,15 +13,55 @@
         }
 
         .box {
+            position: relative;
+            width: 346px;
+            height: 200px;
+            margin: 200px auto;
+            background: red;
             box-sizing: border-box;
         }
+
+        .box::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 200px;
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: 100px solid red;
+            border-left: 173px solid transparent;
+            border-right: 173px solid transparent;
+        }
+
+        .box::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 200px;
+            display: block;
+            width: 0;
+            height: 0;
+            border-bottom: 100px solid red;
+            border-left: 173px solid transparent;
+            border-right: 173px solid transparent;
+        }
+
+        /* .test {
+            width: 0;
+            height: 0;
+            border-top: 100px solid #000;
+            border-right: 173px solid transparent;
+            border-bottom: 100px solid #666;
+            border-left: 173px solid transparent;
+
+        } */
     </style>
 </head>
 
 <body>
-    <div class="box">
-
-    </div>
+    <div class="box"></div>
+    <div class="test"></div>
 </body>
 
 </html>

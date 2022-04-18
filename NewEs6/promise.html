@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+
+<body>
+    <div>
+
+    </div>
+    <script>
+        //console.log(new Promise(function (resolve, reject) { }))
+
+        // setTimeout(() => {
+        //     console.log('setTime')
+        // }, 50)
+        // let promise = new Promise(function (resolve, reject) {
+        //     // setInterval(() => {
+        //     //     Math.random() * 100 > 60 ? resolve('OK') : reject('NO');
+        //     // }, 30)
+        //     console.log(0);
+        //     resolve(1);
+        // })
+        // promise.then((val) => {
+        //     console.log(val);
+        //     return new Promise((resolve, reject) => {
+        //         resolve('成功的回调')
+        //     })
+        // }, (reason) => {
+        //     console.log(reason);
+        //     return new Promise((resolve, reject) => {
+        //         reject('失败的回调')
+        //     })
+        // }).then((val) => {
+        //     console.log(val);
+        // }, (reason) => {
+        //     console.log(reason)
+        // })
+        // console.log(2);
+
+        // let promise = new Promise((resolve, reject) => {
+
+        // })
+
+        // function makeIterator(arr) {
+        //     var nextIndex = 0;
+        //     return {
+        //         next() {
+        //             if (nextIndex < arr.length) {
+        //                 return { value: arr[nextIndex++], done: false }
+        //             }
+        //             return { value: undefined, done: true }
+        //         }
+        //     }
+        // }
+
+
+
+        // function Promise(fn) {
+        //     var state = 'pending',
+        //         value,
+        //         callback = null;
+
+        //     function resolve(newValue) {
+        //         value = newValue;
+        //         state = 'resolved';
+        //     }
+
+        //     function handle(handle) {
+        //         // onResolved(value);
+        //         let returnValue = handle.onResolved(value);
+        //         handle.resolve(returnValue)
+        //     }
+
+        //     this.then = function (onResolved) {
+        //         //handle(onResolved);
+        //         return new Promise(function (resolve) {
+        //             handle({
+        //                 onResolved: onResolved,
+        //                 resolve: resolve
+        //             })
+        //         });
+        //     }
+
+        //     fn(resolve)
+        // }
+
+        // // new Promise(function (resolve) {
+        // //     resolve(66);
+        // // }).then(function (val) {
+
+        // // })
+
+        // var dothing = new Promise(function (resolve) {
+        //     resolve(66);
+        // })
+
+        // dothing.then((val) => {
+        //     console.log('第一次调用：' + val);
+        //     return 88;
+        // }).then((val) => {
+        //     console.log('第二次调用：' + val);
+        // })
+
+
+        // function Promise(fn) {
+        //     var value,
+        //         state = 'pending';
+
+        //     function resolve(newValue) {
+        //         try {
+        //             if (newValue && typeof newValue.then === 'function') {
+        //                 newValue.then(resolve);
+        //                 return;
+        //             }
+        //             value = newValue;
+        //             state = 'resolved';
+        //         } catch (e) {
+        //             reject(e);
+        //         }
+        //     }
+
+        //     function reject(reason) {
+        //         value = reason;
+        //         state = 'rejected';
+        //     }
+
+        //     function handle(handler) {
+        //         setTimeout(() => {
+        //             var handlerCallBack;
+
+        //             if (state === 'resolved') {
+        //                 handlerCallBack = handler.onResolved;
+        //             } else {
+        //                 handlerCallBack = handler.onRejected;
+        //             }
+
+        //             if (!handlerCallBack) {
+        //                 if (state === 'resolved') {
+        //                     handler.resolve(value);
+        //                 } else {
+        //                     handler.reject(value);
+        //                 }
+        //                 return;
+        //             }
+
+        //             let returnValue;
+
+        //             try {
+        //                 returnValue = handlerCallBack(value);
+        //             } catch (e) {
+        //                 handler.reject(e);
+        //                 return;
+        //             }
+
+        //             handler.resolve(returnValue);
+        //         }, 1)
+        //     }
+
+        //     this.then = function (onResolved, onRejected) {
+        //         return new Promise(function (resolve, reject) {
+        //             handle({
+        //                 onResolved,
+        //                 onRejected,
+        //                 resolve,
+        //                 reject
+        //             })
+        //         })
+        //     }
+
+        //     fn(resolve, reject)
+        // }
+
+
+        // function Promise(fn) {
+        //     var state = 'pending',
+        //         value;
+
+        //     function resolve(result) {
+        //         try {
+        //             if (result && typeof result.then === 'function') {
+        //                 result.then(resolve);
+        //                 return;
+        //             }
+        //             state = 'resolved';
+        //             value = result;
+        //         } catch (e) {
+        //             reject(e);
+        //         }
+        //     }
+
+        //     function reject(reason) {
+        //         state = 'rejected';
+        //         value = reason;
+        //     }
+
+        //     function handle(handler) {
+        //         setTimeout(() => {
+        //             var handleCallBack;
+        //             if (state === 'resolved') {
+        //                 handleCallBack = handler.onResolved;
+        //             } else {
+        //                 handleCallBack = handler.onRejected;
+        //             }
+
+        //             if (!handleCallBack) {
+        //                 if (state === 'resolved') {
+        //                     handler.resolve(value);
+        //                 } else {
+        //                     handler.reject(value);
+        //                 }
+        //                 return;
+        //             }
+
+        //             var returnValue;
+
+        //             try {
+        //                 returnValue = handleCallBack(value);
+        //             } catch (e) {
+        //                 reject(e);
+        //                 return
+        //             }
+
+        //             handler.resolve(returnValue);
+        //         }, 1)
+        //     }
+
+        //     this.then = function (onResolved, onRejected) {
+        //         return new Promise((resolve, reject) => {
+        //             handle({
+        //                 onResolved,
+        //                 onRejected,
+        //                 resolve,
+        //                 reject
+        //             })
+        //         })
+        //     }
+
+        //     fn(resolve, reject);
+        // }
+
+        function* wan(arr) {
+            for (let key in arr) {
+                yield arr[key];
+            }
+        }
+
+        var arr1 = [
+            function test1() {
+                console.log('第一个');
+                return true;
+            },
+            function test2() {
+                console.log('第二个');
+                return true;
+            }
+        ];
+
+        let res1 = wan(arr1);
+        console.log(res1.next())
+        console.log(res1.next())
+        console.log(res1.next())
+
+        function gendertaor(arr) {
+            var nextIndex = 0;
+            return {
+                next() {
+
+                    if (nextIndex >= arr.length) {
+                        return {
+                            done: true,
+                            value: undefined
+                        }
+                    }
+                    return {
+                        done: false,
+                        value: arr[nextIndex++]
+                    }
+                }
+            }
+        }
+
+        function gendertaor2(arr) {
+            var nextIndex = 0;
+            return {
+                next() {
+                    var done = nextIndex >= arr.length,
+                        value = !done ? arr[nextIndex++] : undefined;
+                    return {
+                        done,
+                        value
+                    }
+                }
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>

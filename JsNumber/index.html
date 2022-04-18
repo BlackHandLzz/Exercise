@@ -60,8 +60,20 @@
 </head>
 
 <body>
+
     <div class="box"></div>
     <div class="test"></div>
+    <script>
+        //rt = str.replace(/[A-z | \-]+/g, '')
+        //rt = str.replace(/(?<=(\-))[A-z]+/g, '')
+
+        var str = 'abc-133.59-abcd';
+        // str.replace(/\-([\d | \.]+)/g, ($, $1, $2) => {
+        //     rt = $
+        // })
+        rt = str.replace(/((\-*)[A-z])+/g, '')
+        console.log(rt)
+    </script>
 </body>
 
 </html>

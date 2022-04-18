@@ -12,6 +12,23 @@
     <div>
 
     </div>
+    <script>
+        let myObj = {};
+
+        myObj = {
+            b: 1,
+            get a() {
+                return this.b;
+            },
+            set a(val) {
+                this.b = val * 3;
+            }
+        }
+
+        myObj.a = 2;
+
+        console.log(myObj.a)
+    </script>
 </body>
 
 </html>
